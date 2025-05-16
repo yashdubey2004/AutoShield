@@ -1,0 +1,87 @@
+.flagged-accounts-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 2rem;
+  }
+  
+  .accounts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .account-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+  }
+  
+  .account-card:hover {
+    transform: translateY(-2px);
+  }
+  
+  .account-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .account-header h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+  }
+  
+  .risk-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-weight: 500;
+    font-size: 0.875rem;
+  }
+  
+  .high-risk {
+    background-color: #fee2e2;
+    color: #dc2626;
+  }
+  
+  .medium-risk {
+    background-color: #fef3c7;
+    color: #d97706;
+  }
+  
+  .low-risk {
+    background-color: #d1fae5;
+    color: #059669;
+  }
+  
+  .account-details {
+    color: #4b5563;
+  }
+  
+  .account-details p {
+    margin-bottom: 0.5rem;
+  }
+  
+  .account-details strong {
+    color: #374151;
+  }
+  
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    font-size: 1.25rem;
+    color: #6b7280;
+  }
+  

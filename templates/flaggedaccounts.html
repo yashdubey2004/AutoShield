@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flagged Accounts - AccountVerify</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/FlaggedAccounts.css') }}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    function downloadResultsPDF() {
+      const { jsPDF } = window.jspdf;
+      const results = JSON.parse(localStorage.getItem("results"));
+      const doc = new jsPDF();
+      let yPos = 20;
+      
+      doc.setFontSize(16);
+      doc.text("Fraud Detection Detailed Report", 14, yPos);
+      yPos += 10;
+      
+      // Table Header
+      doc.setFontSize(12);
+      doc.text("Account Name", 14, yPos);
+      doc.text("Fake %", 80, yPos);
+      doc.text("Status", 120, yPos);
+      yPos += 6;
+      doc.line(14, yPos, 200, yPos);
+      yPos += 4;
+      
+      // Table rows for flagged accounts (fake_percentage >= 50)
+      const flagged = results.filter(account => account.fake_percentage >= 50);
+      flagged.forEach((account, idx) => {
+        const name = account.username || `Account ${idx + 1}`;
+        const fakePerc = account.fake_percentage.toFixed(2);
+        const status = account.fake_percentage >= 80 ? "High Risk" : "Potential Fake";
+        doc.text(name, 14, yPos);
+        doc.text(`${fakePerc}%`, 80, yPos);
+        doc.text(status, 120, yPos);
+        yPos += 8;
+        if (yPos > 270) {
+          doc.addPage();
+          yPos = 20;
+        }
+      });
+      
+      yPos += 10;
+      doc.text("Graphical Summary", 14, yPos);
+      yPos += 6;
+      
+      const redCount = flagged.filter(account => account.fake_percentage >= 80).length;
+      const yellowCount = flagged.filter(account => account.fake_percentage >= 50 && account.fake_percentage < 80).length;
+      const totalFlagged = flagged.length;
+      const chartX = 14;
+      const chartY = yPos;
+      const chartWidth = 150;
+      const chartHeight = 10;
+      const redWidth = totalFlagged > 0 ? (redCount / totalFlagged) * chartWidth : 0;
+      const yellowWidth = totalFlagged > 0 ? (yellowCount / totalFlagged) * chartWidth : 0;
+      
+      doc.setFillColor(255, 0, 0);
+      doc.rect(chartX, chartY, redWidth, chartHeight, 'F');
+      doc.setFillColor(255, 255, 0);
+      doc.rect(chartX + redWidth, chartY, yellowWidth, chartHeight, 'F');
+      doc.setDrawColor(0, 0, 0);
+      doc.rect(chartX, chartY, chartWidth, chartHeight);
+      
+      yPos += chartHeight + 8;
+      doc.text(`High Risk (Red): ${redCount}`, chartX, yPos);
+      yPos += 6;
+      doc.text(`Potential Fake (Yellow): ${yellowCount}`, chartX, yPos);
+      
+      doc.save("Fraud_Detection_Report.pdf");
+    }
+    
+    window.onload = function() {
+      const results = localStorage.getItem("results");
+      if (results) {
+        const parsed = JSON.parse(results);
+        let tableBody = "";
+        parsed.forEach((account, index) => {
+          const name = account.username || `Account ${index + 1}`;
+          const fakePerc = account.fake_percentage.toFixed(2);
+          const status = account.fake_percentage >= 50 ? (account.fake_percentage >= 80 ? "High Risk" : "Potential Fake") : "Not Fake";
+          tableBody += `<tr>
+                          <td>${name}</td>
+                          <td>${fakePerc}%</td>
+                          <td>${status}</td>
+                        </tr>`;
+        });
+        document.getElementById("resultsTableBody").innerHTML = tableBody;
+      }
+    };
+  </script>
+</head>
+<body>
+  <div class="flagged-accounts-container">
+    <header>
+      <div class="logo">
+        <img src="{{ url_for('static', filename='images/Auto-Shield(LOGO).png') }}" alt="Shield Logo">
+        <span class="logo-text">Auto<span class="highlight">Shield</span></span>
+      </div>
+      <input type="text" class="search-bar" placeholder="Search flagged accounts or reports...">
+      <nav>
+        <a href="/flagged" class="active">Flagged Accounts</a>
+        <a href="/input">
+          <button class="check-accounts-button">Check Accounts</button>
+        </a>
+      </nav>
+      <div class="profile-icon">
+        <a href="/profile">
+          <img src="{{ url_for('static', filename='images/Profile.png') }}" alt="Profile Icon">
+        </a>
+      </div>
+    </header>
+    <main>
+      <h2>Detection Results</h2>
+      <!-- Download Results button -->
+      <button onclick="downloadResultsPDF()" style="margin-bottom: 20px;">Download Results as PDF</button>
+      <table>
+        <thead>
+          <tr>
+            <th>Account Name</th>
+            <th>Fake Percentage</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="resultsTableBody">
+          <!-- Table rows will be populated by JavaScript -->
+        </tbody>
+      </table>
+    </main>
+  </div>
+</body>
+</html>

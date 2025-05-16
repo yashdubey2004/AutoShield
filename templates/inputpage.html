@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Check Accounts - AccountVerify</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/inputpage.css') }}">
+  <script>
+    async function submitForm(event) {
+      event.preventDefault();
+      const form = document.getElementById("inputForm");
+      const formData = new FormData(form);
+      
+      let accountsData = null;
+      const jsonText = formData.get("jsonText");
+      if (jsonText && jsonText.trim() !== "") {
+        try {
+          accountsData = jsonText.split("\n").filter(line => line.trim() !== "").map(line => JSON.parse(line));
+        } catch (error) {
+          alert("Error parsing JSON text: " + error);
+          return;
+        }
+      } else if (formData.get("file")) {
+        const file = formData.get("file");
+        accountsData = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const content = reader.result;
+            try {
+              let parsed = JSON.parse(content);
+              if (parsed && typeof parsed === "object" && !Array.isArray(parsed) && parsed.accounts) {
+                resolve(parsed.accounts);
+              } else if (Array.isArray(parsed)) {
+                resolve(parsed);
+              } else {
+                resolve(content.split("\n").filter(line => line.trim() !== "").map(line => JSON.parse(line)));
+              }
+            } catch (error) {
+              try {
+                const lines = content.split("\n").filter(line => line.trim() !== "");
+                const headers = lines[0].split(",");
+                const data = lines.slice(1).map(line => {
+                  const values = line.split(",");
+                  const obj = {};
+                  headers.forEach((header, index) => {
+                    obj[header.trim()] = values[index].trim();
+                  });
+                  return obj;
+                });
+                resolve(data);
+              } catch (csvError) {
+                reject("Error parsing file as JSON or CSV.");
+              }
+            }
+          };
+          reader.onerror = () => reject("Error reading file.");
+          reader.readAsText(file);
+        });
+      } else {
+        alert("Please provide account data as JSON or file upload.");
+        return;
+      }
+      
+      try {
+        const response = await fetch("/detect", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ accounts: accountsData })
+        });
+        const data = await response.json();
+        // Store results in session storage (or local storage) and then redirect.
+        localStorage.setItem("results", JSON.stringify(data.results));
+        window.location.href = "/flagged";
+      } catch (error) {
+        alert("Error during detection: " + error);
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="input-page">
+    <header>
+      <div class="logo">
+        <img src="{{ url_for('static', filename='images/Auto-Shield(LOGO).png') }}" alt="Shield Logo">
+        <span class="logo-text">Auto<span class="highlight">Shield</span></span>
+      </div>
+      <nav>
+        <a href="/profile">Home</a>
+        <a href="/flagged">Flagged Accounts</a>
+      </nav>
+    </header>
+    <main>
+      <h2>Enter Account Data</h2>
+      <p>You can either paste account data (one JSON object per line) or upload a file (CSV or JSON).</p>
+      <form id="inputForm" onsubmit="submitForm(event)">
+        <textarea name="jsonText" rows="10" cols="70" placeholder="Paste one JSON object per line"></textarea>
+        <br>
+        <label for="fileUpload">Or upload a file (CSV or JSON): </label>
+        <input type="file" name="file" id="fileUpload" accept=".csv, .json">
+        <br>
+        <button type="submit">Submit Accounts</button>
+      </form>
+    </main>
+  </div>
+</body>
+</html>

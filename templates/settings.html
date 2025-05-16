@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="settings.css">
+    <script>
+        // Toggle Dropdown Function
+        function toggleDropdown() {
+            var dropdown = document.getElementById("contactDropdown");
+            dropdown.classList.toggle("show");
+        }
+
+        // Close dropdown if clicked outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropdown-btn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains("show")) {
+                        openDropdown.classList.remove("show");
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-btn {
+            background-color: #838383;
+            color: rgb(0, 0, 0);
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 250px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            padding: 10px;
+            z-index: 1;
+        }
+
+        .dropdown-content p {
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        .dropdown-content a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #007bff;
+            padding: 5px 0;
+        }
+
+        .dropdown-content img {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        /* Show dropdown when toggled */
+        .show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <a href="profile.html" class="logo">
+                    <img src="Auto-Shield(LOGO).png" alt="Shield Logo">
+                    <span class="logo-text">Auto<span class="highlight">Shield</span></span>
+                </a>
+            </div>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Search flagged accounts or reports...">
+            </div>
+        
+            <div class="nav-container">
+                <nav>
+                    <a href="flaggedaccounts.html">Flagged Accounts</a>
+                    <a href="inputpage.html">Check Accounts</a>
+                </nav>
+                
+                <div class="profile-icon">
+                    <a href="settings.html">
+                        <img src="Profile.png" alt="Profile Icon">
+                    </a>
+                </div>
+            </div>    
+        </header>
+
+        <section class="support-legal">
+            <h2>Support & Legal</h2>
+            <div class="support-links">
+                <!-- Help Center - Redirects to Indian Cyber Security official website -->
+                <a href="https://cybercrime.gov.in/" target="_blank" class="support-link" rel="noopener noreferrer">
+                    <span>Help Center</span>
+                    <span class="arrow">→</span>
+                </a>
+
+                <!-- Contact Support Dropdown -->
+                <div class="dropdown">
+                    <button class="dropdown-btn" onclick="toggleDropdown()">Contact Support ▼</button>
+                    <div id="contactDropdown" class="dropdown-content">
+                        <p><strong>Yash Dubey - Backend</strong><br>📞 +91 70200 14909</p>
+                        <p><strong>Harshvardhan Khajuria - Machine Learning Model Testing</strong><br>📞 +91 88992 01719</p>
+                        <p><strong>Vedant Umap - Frontend</strong><br>📞 +91 75066 64226</p>
+
+                        <hr>
+
+                        <a href="https://wa.me/917020014909" target="_blank">
+                            <img src="whatsapp.png" alt="WhatsApp">
+                            Chat on WhatsApp
+                        </a>
+                        <a href="https://github.com/" target="_blank">
+                            <img src="github.png" alt="GitHub">
+                            Visit GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <input type="checkbox" id="faq-1">
+                    <label for="faq-1">What does this app do?</label>
+                    <div class="faq-content">
+                        <p>It detects fake accounts on social media using AI and machine learning.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <input type="checkbox" id="faq-2">
+                    <label for="faq-2">How does it work?</label>
+                    <div class="faq-content">
+                        <p>It analyzes account activity, followers, and engagement patterns to flag suspicious accounts.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <input type="checkbox" id="faq-3">
+                    <label for="faq-3">Is the detection 100% accurate?</label>
+                    <div class="faq-content">
+                        <p>No, but it provides highly accurate results. Some false positives or negatives may occur.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <input type="checkbox" id="faq-4">
+                    <label for="faq-4">What data do you collect?</label>
+                    <div class="faq-content">
+                        <p>Only publicly available account data—no private or sensitive information.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <input type="checkbox" id="faq-5">
+                    <label for="faq-5">Can it detect all fake accounts?</label>
+                    <div class="faq-content">
+                        <p>It detects bots, spam, and impersonation accounts but may miss advanced fakes.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <input type="checkbox" id="faq-6">
+                    <label for="faq-6">Is my account safe?</label>
+                    <div class="faq-content">
+                        <p>Yes, we don't require logins or make any changes to your account.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <input type="checkbox" id="faq-7">
+                    <label for="faq-7">How can I improve my legitimacy score?</label>
+                    <div class="faq-content">
+                        <p>Use a profile picture, engage naturally, post consistently, and avoid spammy behavior.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

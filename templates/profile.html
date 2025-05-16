@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard Overview - AccountVerify</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/Profile.css') }}">
+  <script>
+    async function fetchStats() {
+      try {
+        const response = await fetch('/metrics');
+        const data = await response.json();
+        document.getElementById('flaggedAccounts').textContent = data.total_flagged;
+        document.getElementById('totalChecked').textContent = data.total_reports;
+        document.getElementById('dangerousAccounts').textContent = data.high_risk;
+        document.getElementById('timeRequired').textContent = data.avg_detection_time.toFixed(2) + ' secs';
+      } catch (error) {
+        console.error("Error fetching stats:", error);
+      }
+    }
+    setInterval(fetchStats, 5000);
+    window.onload = fetchStats;
+  </script>
+</head>
+<body>
+  <div class="profile-container">
+    <h1 class="profile-title">Dashboard Overview</h1>
+    <div class="stats-grid">
+      <div class="stat-card bg-blue-50">
+        <div class="stat-icon bg-blue-100">
+          <img src="{{ url_for('static', filename='images/flag.png') }}" alt="Flag Icon" style="height:24px;">
+        </div>
+        <div class="stat-content">
+          <h3>Total Flagged Accounts</h3>
+          <p id="flaggedAccounts" class="stat-value">{{ stats.flaggedAccounts }}</p>
+        </div>
+      </div>
+      <div class="stat-card bg-green-50">
+        <div class="stat-icon bg-green-100">
+          <img src="{{ url_for('static', filename='images/search.png') }}" alt="Search Icon" style="height:24px;">
+        </div>
+        <div class="stat-content">
+          <h3>Total Accounts Checked</h3>
+          <p id="totalChecked" class="stat-value">{{ stats.totalChecked }}</p>
+        </div>
+      </div>
+      <div class="stat-card bg-red-50">
+        <div class="stat-icon bg-red-100">
+          <img src="{{ url_for('static', filename='images/alert.png') }}" alt="Alert Icon" style="height:24px;">
+        </div>
+        <div class="stat-content">
+          <h3>Dangerous Accounts</h3>
+          <p id="dangerousAccounts" class="stat-value">{{ stats.dangerousAccounts }}</p>
+        </div>
+      </div>
+      <div class="stat-card bg-purple-50">
+        <div class="stat-icon bg-purple-100">
+          <img src="{{ url_for('static', filename='images/clock.png') }}" alt="Clock Icon" style="height:24px;">
+        </div>
+        <div class="stat-content">
+          <h3>Time Required</h3>
+          <p id="timeRequired" class="stat-value">{{ stats.timeRequired }}</p>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:20px;">
+      <a href="/input" class="check-accounts-button">Check Accounts</a>
+    </div>
+  </div>
+</body>
+</html>

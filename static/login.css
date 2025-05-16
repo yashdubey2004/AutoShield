@@ -1,0 +1,137 @@
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #223449;
+}
+
+/* Logo Styling */
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.logo-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.highlight {
+    color: #2dde98;
+}
+
+/* Login Page Styling */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #1c2a3a;
+}
+
+.login-box {
+    background: #223449;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    width: 350px;
+    color: white;
+}
+
+.login-box h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.login-box p {
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.register-link {
+    color: #2dde98;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+label {
+    display: block;
+    text-align: left;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.password-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.forgot-link {
+    font-size: 12px;
+    color: #2dde98;
+    text-decoration: none;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    background: #1c2a3a;
+    color: white;
+    border-radius: 5px;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #2dde98;
+    border: none;
+    color: black;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Google Sign-in Button Styling */
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #2a2f3b;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s ease;
+}
+
+.google-btn:hover {
+    background: #333;
+}
+
+.google-btn a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    width: 100%;
+}
+
+.google-btn img {
+    width: 20px;
+    margin-right: 10px;
+}

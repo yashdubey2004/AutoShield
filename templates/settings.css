@@ -1,0 +1,283 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1c2a3a;
+    color: white;
+}
+
+/* Header */
+header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #223449;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    height: 70px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+/* Logo Styling */
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.logo-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.highlight {
+    color: #2dde98;
+}
+
+/* Search Bar */
+.search-bar input {
+    padding: 8px;
+    width: 250px;
+    border-radius: 5px;
+    border: none;
+}
+
+/* Navigation */
+.nav-container {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Space between nav links */
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+/* Profile Icon (Rightmost) */
+.profile-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden; /* Ensures the image doesn't overflow */
+}
+
+.profile-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image fills the space properly */
+    border-radius: 50%; /* Makes the image round */
+}
+:root {
+    --color-bg: #D9D9D9;
+    --color-text: #374151;
+    --color-heading: #1F2937;
+    --color-border: #2D3748;
+    --color-accent: #273549;
+    --color-success: #10B981;
+    --color-black: #000000;
+    --color-white: #FFFFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Karla', sans-serif;
+    background-color: #223449;
+    color: var(--color-text);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+header {
+    margin-bottom: 2rem;
+}
+
+h1 {
+    color: var(--color-heading);
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+h2 {
+    color: var(--color-heading);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+section {
+    background-color: var(--color-white);
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Account Settings Styles */
+.settings-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+label {
+    font-weight: 500;
+    color: var(--color-heading);
+}
+
+input {
+    padding: 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    font-family: 'Karla', sans-serif;
+    font-size: 1rem;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+}
+
+.save-btn {
+    background-color: var(--color-success);
+    color: var(--color-white);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-family: 'Karla', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    align-self: flex-start;
+}
+
+.save-btn:hover {
+    opacity: 0.9;
+}
+
+/* Support & Legal Styles */
+.support-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.support-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--color-bg);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--color-heading);
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.support-link:hover {
+    background-color: #c5c5c5;
+}
+
+.arrow {
+    font-size: 1.25rem;
+}
+
+/* FAQ Styles */
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.faq-item {
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+}
+
+.faq-item input {
+    display: none;
+}
+
+.faq-item label {
+    display: block;
+    padding: 1rem;
+    cursor: pointer;
+    position: relative;
+    font-weight: 500;
+}
+
+.faq-item label::after {
+    content: '+';
+    position: absolute;
+    right: 1rem;
+    transition: transform 0.3s;
+}
+
+.faq-item input:checked + label::after {
+    transform: rotate(45deg);
+}
+
+.faq-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background-color: var(--color-bg);
+}
+
+.faq-item input:checked ~ .faq-content {
+    max-height: 500px;
+}
+
+.faq-content p {
+    padding: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .container {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    section {
+        padding: 1.5rem;
+    }
+
+    .save-btn {
+        width: 100%;
+    }
+}

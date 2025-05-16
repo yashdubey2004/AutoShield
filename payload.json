@@ -1,0 +1,17 @@
+{
+  "accounts": [
+    {
+      "followers": 1500,
+      "following": 300,
+      "engagement_rate": 0.02,
+      "post_frequency": 5,
+      "posts": 200,
+      "account_age_days": 365,
+      "bio_length": 50,
+      "has_external_link": false,
+      "has_profile_picture": true,
+      "is_verified": false,
+      "suspicious_activity": 0
+    }
+  ]
+}

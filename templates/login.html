@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - AccountVerify</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/Login.css') }}">
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-card">
+      <div class="flex items-center justify-center mb-8">
+        <img src="{{ url_for('static', filename='images/shield.png') }}" alt="Shield" class="h-12 w-12">
+        <h1 class="text-3xl font-bold ml-2">AccountVerify</h1>
+      </div>
+      {% if error %}
+      <div class="error-message">{{ error }}</div>
+      {% endif %}
+      <form method="post" action="/login">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" name="password" required>
+        </div>
+        <button type="submit" class="login-button">Login</button>
+      </form>
+      <p class="text-center mt-4">
+        Don't have an account? 
+        <a href="/signup" class="text-blue-600 hover:underline">Sign up</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>
